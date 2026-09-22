@@ -1,12 +1,20 @@
 # SchaltungsZeichner (CircuitSketcher)
 
+**[Deutsch](#deutsch)** | **[English](#english)**
+
+---
+
+<a name="deutsch"></a>
+
+## Deutsch
+
 Ein visuelles Drag-and-Drop-Werkzeug zum Zeichnen elektrischer Schaltpläne,
 geschrieben in Python mit PyQt5.
 
 > Hinweis: Der interne Fenstertitel lautet „SchaltungsZeichner". CircuitSketcher
 > ist der Projekt-/Verzeichnisname.
 
-## Funktionen
+### Funktionen
 
 - Rasterbasierte, unendliche Zeichenfläche (20 px-Raster) mit magnetischem Snapping
 - Datengetriebene Symbol-Bibliothek: Bauteile werden aus `symbols/*.symbol.json` geladen
@@ -19,19 +27,19 @@ geschrieben in Python mit PyQt5.
 - Speichern/Laden als JSON, Export als PNG und SVG
 - Pan mit mittlerer Maustaste, Zoom mit dem Mausrad
 
-## Installation
+### Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Start
+### Start
 
 ```bash
 python main.py
 ```
 
-## Setup.exe bauen (Windows, Inno Setup)
+### Setup.exe bauen (Windows, Inno Setup)
 
 Ein Befehl erstellt die komplette Installer-Datei (benötigt einmalig
 [Inno Setup](https://jrsoftware.org/isdl.php) auf dem Build-Rechner):
@@ -60,7 +68,7 @@ optionale Desktop-Verknüpfung).
 > löst das; die Pfad-Logik (`src/symbols/library.py`) bevorzugt einen
 > `symbols`-Ordner neben der EXE.
 
-## Projektstruktur
+### Projektstruktur
 
 ```
 main.py                  Einstiegspunkt
@@ -83,7 +91,7 @@ Siehe auch [FEATURES.md](FEATURES.md), [QUICKSTART.md](QUICKSTART.md),
 [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) und
 [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md).
 
-## Lizenz
+### Lizenz
 
 Copyright (c) 2026 FexForge (<https://github.com/FexForge>)
 
@@ -100,3 +108,108 @@ Weitergabe dieser Anwendung setzt daher die GPL v3 voraus.
 GitHub: <https://github.com/FexForge/CircuitSketcher>. Probleme und Anfragen bitte als
 [Issue](https://github.com/FexForge/CircuitSketcher/issues) melden. Beim Weiterleiten
 bitte die LICENSE-Datei mitbeigeben.
+
+---
+
+<a name="english"></a>
+
+## English
+
+A visual drag-and-drop tool for drawing electrical circuit diagrams,
+written in Python with PyQt5.
+
+> Note: The internal window title is “SchaltungsZeichner”. CircuitSketcher is
+> the project/directory name.
+
+### Features
+
+- Grid-based, infinite canvas (20 px grid) with magnetic snapping
+- Data-driven symbol library: components are loaded from `symbols/*.symbol.json`
+- Custom graphical symbol editor for creating new parts without code changes
+- **4-step rotation** (0° / 90° / 180° / 270°)
+- Scale, move and delete components and wires
+- Draw wires in multiple colors (click-click with live preview)
+- Editable placeholders per component (name, voltage, current, resistance)
+- **Undo/Redo** (snapshot-based, all actions)
+- Save/load as JSON, export as PNG and SVG
+- Pan with middle mouse button, zoom with the mouse wheel
+
+### Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+### Start
+
+```bash
+python main.py
+```
+
+### Building Setup.exe (Windows, Inno Setup)
+
+A single command builds the complete installer (requires
+[Inno Setup](https://jrsoftware.org/isdl.php) on the build machine):
+
+```bash
+python make_release.py
+```
+
+Result: **`release/SchaltungsZeichner-Setup.exe`** — a single file to share.
+Recipients run it with a double click (German wizard, GPL license page,
+per-user installation to `%LOCALAPPDATA%\Programs\SchaltungsZeichner`,
+**no admin rights**, optional desktop shortcut).
+
+- Start menu entry with icon, entry under “Apps & Features” including uninstaller
+- **Symbols are stored as real files under `<program folder>\symbols`** —
+  changes and new symbols from the symbol editor are kept permanently.
+  **Updates never overwrite custom symbols** (`onlyifdoesntexist`).
+- Silent install/uninstall supported:
+  `SchaltungsZeichner-Setup.exe /VERYSILENT /DIR=...` or `unins000.exe /VERYSILENT`
+- Inno script: `installer/setup.iss` (onedir build via PyInstaller, EXE icon
+  from `assets/favicon.ico`)
+
+> Note: The former onefile build extracted symbols into a temporary folder on
+> every start — changes were lost. The onedir installer fixes this; the path
+> logic (`src/symbols/library.py`) prefers a `symbols` folder next to the EXE.
+
+### Project Structure
+
+```
+main.py                  Entry point
+requirements.txt         Dependencies (PyQt5)
+symbols/                 Symbol definitions (JSON, editable in the symbol editor)
+src/
+├── canvas/grid_canvas.py            QGraphicsView with grid, pan, zoom
+├── components/
+│   ├── base_component.py            Abstract base class + placeholders
+│   ├── symbol_component.py          Component rendered from JSON (4-way rotation)
+│   └── wire.py                      Connection line with color selection
+├── symbols/library.py               Loads/validates the *.symbol.json files
+└── ui/
+    ├── main_window.py               Main window, menus, toolbar, undo/redo
+    ├── component_toolbar.py         Dynamic component palette
+    └── symbol_editor.py             Graphical editor for custom symbols
+```
+
+See also [FEATURES.md](FEATURES.md), [QUICKSTART.md](QUICKSTART.md),
+[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) and
+[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md).
+
+### License
+
+Copyright (c) 2026 FexForge (<https://github.com/FexForge>)
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the **GNU General Public License Version 3** as published by the
+Free Software Foundation. See [LICENSE](LICENSE) or
+<https://www.gnu.org/licenses/gpl-3.0.html> for the full license text.
+
+**License note:** This software uses [PyQt5](https://www.riverbankcomputing.com/software/pyqt/),
+which is licensed under GPL v3 or a commercial Riverbank license. Free
+redistribution of this application therefore requires GPL v3.
+
+**Source code (GPL §6):** The complete source code is publicly available on
+GitHub: <https://github.com/FexForge/CircuitSketcher>. Please report problems
+and questions as an [issue](https://github.com/FexForge/CircuitSketcher/issues).
+When sharing, please include the LICENSE file.
