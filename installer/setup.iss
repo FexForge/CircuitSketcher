@@ -12,7 +12,7 @@
 
 #define MyAppName "SchaltungsZeichner"
 #define MyAppVersion "1.3"
-#define MyAppPublisher "FexForge"
+#define MyAppPublisher "fentrax"
 #define MyAppExeName "SchaltungsZeichner.exe"
 #define MyAppGuid "{B7C1D9A2-4E5F-4C6B-9A3D-1E2F3A4B5C6D}"
 
