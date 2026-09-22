@@ -93,7 +93,7 @@ Siehe auch [FEATURES.md](FEATURES.md), [QUICKSTART.md](QUICKSTART.md),
 
 ### Lizenz
 
-Copyright (c) 2026 FexForge (<https://github.com/FexForge>)
+Copyright (c) 2026 FexForge (<https://github.com/fentrax>)
 
 Dieses Programm ist freie Software: Sie können es unter den Bedingungen der
 **GNU General Public License Version 3** (wie von der Free Software Foundation
@@ -105,8 +105,8 @@ das unter der GPL v3 bzw. einer kommerziellen Riverbank-Lizenz steht. Die freie
 Weitergabe dieser Anwendung setzt daher die GPL v3 voraus.
 
 **Quellcode (GPL §6):** Der vollständige Quellcode ist öffentlich verfügbar auf
-GitHub: <https://github.com/FexForge/CircuitSketcher>. Probleme und Anfragen bitte als
-[Issue](https://github.com/FexForge/CircuitSketcher/issues) melden. Beim Weiterleiten
+GitHub: <https://github.com/fentrax/CircuitSketcher>. Probleme und Anfragen bitte als
+[Issue](https://github.com/fentrax/CircuitSketcher/issues) melden. Beim Weiterleiten
 bitte die LICENSE-Datei mitbeigeben.
 
 ---
@@ -198,7 +198,7 @@ See also [FEATURES.md](FEATURES.md), [QUICKSTART.md](QUICKSTART.md),
 
 ### License
 
-Copyright (c) 2026 FexForge (<https://github.com/FexForge>)
+Copyright (c) 2026 FexForge (<https://github.com/fentrax>)
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the **GNU General Public License Version 3** as published by the
@@ -210,6 +210,6 @@ which is licensed under GPL v3 or a commercial Riverbank license. Free
 redistribution of this application therefore requires GPL v3.
 
 **Source code (GPL §6):** The complete source code is publicly available on
-GitHub: <https://github.com/FexForge/CircuitSketcher>. Please report problems
-and questions as an [issue](https://github.com/FexForge/CircuitSketcher/issues).
+GitHub: <https://github.com/fentrax/CircuitSketcher>. Please report problems
+and questions as an [issue](https://github.com/fentrax/CircuitSketcher/issues).
 When sharing, please include the LICENSE file.

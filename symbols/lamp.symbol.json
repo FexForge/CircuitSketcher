@@ -4,7 +4,7 @@
   "name": "Lampe",
   "category": "Verbraucher",
   "default_values": {
-    "name": "L",
+    "name": "H",
     "voltage": "12 V"
   },
   "orientations": {

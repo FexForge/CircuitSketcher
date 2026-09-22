@@ -1,6 +1,8 @@
 """
 Leitungs-Bauteil zum Verbinden von Schaltungselementen.
 """
+import math
+
 from PyQt5.QtWidgets import QGraphicsLineItem, QGraphicsItem, QGraphicsEllipseItem
 from PyQt5.QtCore import Qt, QLineF, QPointF
 from PyQt5.QtGui import QPen, QColor
@@ -243,7 +245,12 @@ class Wire(QGraphicsLineItem):
         return super().itemChange(change, value)
 
     def paint(self, painter, option, widget):
-        """Leitung mit Auswahlhervorhebung zeichnen."""
+        """Leitung mit Auswahlhervorhebung zeichnen.
+
+        Enden an Bauteil-Polen werden visuell um den Polkreis eingezogen
+        (Anschlusskreise frei von Linien) — die Geometrie/Verbindung bleibt
+        am Polzentrum, identisch zur MCP-Server-Renderlogik."""
+        line = self._pole_trimmed_line()
         base_pen = QPen(self._color, self.BASE_WIDTH)
         base_pen.setCapStyle(Qt.RoundCap)
 
@@ -251,8 +258,40 @@ class Wire(QGraphicsLineItem):
             highlight_pen = QPen(self.HIGHLIGHT_COLOR, self.BASE_WIDTH + 2)
             highlight_pen.setCapStyle(Qt.RoundCap)
             painter.setPen(highlight_pen)
-            painter.drawLine(self.line())
+            painter.drawLine(line)
             base_pen.setWidth(self.BASE_WIDTH + 1)
 
         painter.setPen(base_pen)
-        painter.drawLine(self.line())
+        painter.drawLine(line)
+
+    #: Abstand Leitungsende zu Polkreismitte (Kreis r=4 + Strichbreite),
+    #: identisch zu core/svgrender.py POLE_CLEARANCE des MCP-Servers.
+    POLE_CLEARANCE = 5.0
+
+    def _pole_trimmed_line(self):
+        """QLineF mit um POLE_CLEARANCE eingezogenen Enden, wenn diese auf
+        einem Bauteil-Pol liegen (rein visuell, nur für paint())."""
+        line = self.line()
+        scene = self.scene()
+        if scene is None:
+            return line
+        from src.components.symbol_component import SymbolComponent
+        poles = []
+        for item in scene.items():
+            if isinstance(item, SymbolComponent):
+                for pole in item.get_pole_points():
+                    poles.append(self.mapFromScene(pole))
+        if not poles:
+            return line
+        p1, p2 = line.p1(), line.p2()
+        dx, dy = p2.x()-p1.x(), p2.y()-p1.y()
+        length = math.hypot(dx, dy)
+        if length <= 2 * self.POLE_CLEARANCE:
+            return line
+        ux, uy = dx/length, dy/length
+        for pole in poles:
+            if abs(pole.x()-p1.x()) < 0.5 and abs(pole.y()-p1.y()) < 0.5:
+                p1 = QPointF(p1.x()+ux*self.POLE_CLEARANCE, p1.y()+uy*self.POLE_CLEARANCE)
+            if abs(pole.x()-p2.x()) < 0.5 and abs(pole.y()-p2.y()) < 0.5:
+                p2 = QPointF(p2.x()-ux*self.POLE_CLEARANCE, p2.y()-uy*self.POLE_CLEARANCE)
+        return QLineF(p1, p2)

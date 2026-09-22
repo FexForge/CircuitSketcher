@@ -15,7 +15,7 @@ VOLTAGE_COLOR = QColor(0, 102, 204)
 CURRENT_COLOR = QColor(220, 53, 69)
 
 # Lokale Geometrie (Pixel, unskaliert)
-ARC_HALF_WIDTH = 44    # Bogen spannt ±44 px (Passt zum 80-px-Polabstand + Luft)
+ARC_HALF_WIDTH = 40    # Bogen spannt ±40 px = Polspanne (Parität zum MCP-Server)
 ARC_HEIGHT = 14        # "Leicht gebogen": Scheitelhöhe des Bogens
 ARC_BASE_OFFSET = 34   # Abstand Bogenenden über Bauteilmitte (y negativ = oben)
 TRIANGLE_SIZE = 12     # Dreieckshalbe Breite/Höhe des Strompfeils
